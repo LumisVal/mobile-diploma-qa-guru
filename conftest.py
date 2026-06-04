@@ -51,7 +51,7 @@ def create_local_options():
 def mobile_management():
     if is_bstack():
         driver = webdriver.Remote(
-            command_executor="https://hub.browserstack.com/wd/hub",
+            command_executor="https://hub-cloud.browserstack.com/wd/hub",
             options=create_bstack_options(),
         )
     else:
