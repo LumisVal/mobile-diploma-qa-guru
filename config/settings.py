@@ -1,12 +1,12 @@
 from pydantic_settings import BaseSettings
 from pydantic_settings import SettingsConfigDict
-
+from pydantic import Field
 from config.context import *
 
 
 class Settings(BaseSettings):
-    browserstack_user: str | None = None
-    browserstack_key: str | None = None
+    browserstack_user: str | None = Field(default=None, alias="BROWSERSTACK_USER")
+    browserstack_key: str | None = Field(default=None, alias="BROWSERSTACK_KEY")
 
     platform_name: str
 
