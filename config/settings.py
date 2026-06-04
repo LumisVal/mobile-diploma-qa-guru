@@ -1,12 +1,11 @@
-from pydantic_settings import BaseSettings
-from pydantic_settings import SettingsConfigDict
-from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from config.context import *
 
 
 class Settings(BaseSettings):
-    browserstack_user: str | None = Field(default=None, alias="browserstack_user")
-    browserstack_key: str | None = Field(default=None, alias="browserstack_key")
+    browserstack_user: str | None = None
+    browserstack_key: str | None = None
 
     platform_name: str
 
@@ -24,9 +23,7 @@ class Settings(BaseSettings):
 
     app: str | None = None
 
-    model_config = SettingsConfigDict(
-        extra="ignore"
-    )
+    model_config = SettingsConfigDict(extra="ignore")
 
 
 settings = Settings()
