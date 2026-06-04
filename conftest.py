@@ -16,8 +16,6 @@ def is_bstack():
 def create_bstack_options():
     options = UiAutomator2Options()
 
-    print("BS USER:", settings.browserstack_user)
-    print("BS KEY:", settings.browserstack_key)
 
     options.platform_name = "Android"
     options.app = settings.android_app
