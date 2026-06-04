@@ -5,8 +5,8 @@ from config.context import *
 
 
 class Settings(BaseSettings):
-    browserstack_user: str | None = Field(default=None, alias="BROWSERSTACK_USER")
-    browserstack_key: str | None = Field(default=None, alias="BROWSERSTACK_KEY")
+    browserstack_user: str | None = Field(default=None, alias="browserstack_user")
+    browserstack_key: str | None = Field(default=None, alias="browserstack_key")
 
     platform_name: str
 
