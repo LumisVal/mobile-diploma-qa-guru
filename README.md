@@ -73,7 +73,10 @@ TC-05 Open More tab
 
 Verify navigation to the More section.
 
-📂 Project Structure
+The project follows the Page Object Model (POM) pattern.
+
+![Project Structure](docs/screenshots/01_project_structure.png)
+
 ```text
 mobile-diploma-qa-guru
 │
@@ -128,7 +131,9 @@ Open Allure Report
 allure serve allure-results
 ⚙️ Jenkins Integration
 
-The project is integrated with Jenkins for automated execution.
+The project is integrated with Jenkins for automated test execution.
+
+![Jenkins Job](docs/screenshots/02_jenkins_job.png)
 
 Jenkins capabilities
 Remote execution
@@ -150,19 +155,27 @@ Execution statistics
 Attachments
 Execution history
 Detailed test information
-Allure Overview
+### Allure Overview
+
+![Allure Overview](docs/screenshots/03_allure_overview.png)
 
 
 
 
 Test Details
 
+![Allure Test Details](docs/screenshots/04_allure_test.png)
+
+### Allure Overview
+
+![Allure Overview](docs/screenshots/03_allure_overview.png)
 
 
-
-📝 Allure TestOps
+## 📝 Allure TestOps
 
 Manual test cases are maintained in Allure TestOps.
+
+![Allure TestOps](docs/screenshots/05_testops_cases.png)
 
 Implemented Manual Test Cases
 TC-01 Skip onboarding
@@ -175,9 +188,11 @@ Test Cases
 
 
 
-☁️ BrowserStack Integration
+## ☁️ BrowserStack Integration
 
 BrowserStack is used to execute tests on real Android devices.
+
+![BrowserStack Sessions](docs/screenshots/06_browserstack_sessions.png)
 
 Execution Environment
 Device: Google Pixel 8
