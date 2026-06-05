@@ -28,6 +28,7 @@ Wikipedia is a free online encyclopedia available through a native Android appli
 Official website:
 
 https://www.wikipedia.org/
+```text
 
 🛠 Technology Stack
 Test Automation
@@ -45,6 +46,7 @@ Version Control
 🐙 GitHub
 ✅ Implemented Test Cases
 TC-01 Skip onboarding
+```
 
 Verify successful onboarding completion and navigation to the main screen.
 
