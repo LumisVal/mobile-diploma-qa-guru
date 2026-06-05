@@ -30,22 +30,29 @@ Official website:
 https://www.wikipedia.org/
 
 
-🛠 Technology Stack
-Test Automation
-🐍 Python
-🧪 Pytest
-📱 Appium
-Reporting
-📊 Allure Report
-📝 Allure TestOps
-CI/CD
-⚙️ Jenkins
-Cloud Testing
-☁️ BrowserStack
-Version Control
-🐙 GitHub
-✅ Implemented Test Cases
-TC-01 Skip onboarding
+---
+
+## 🛠 Technology Stack
+
+### Test Automation
+- 🐍 **Python**
+- 🧪 **Pytest**
+- 📱 **Appium**
+
+### Reporting
+- 📊 **Allure Report**
+- 📝 **Allure TestOps**
+
+### CI/CD
+- ⚙️ **Jenkins**
+
+### Cloud Testing
+- ☁️ **BrowserStack**
+
+### Version Control
+- 🐙 **GitHub**
+
+---
 
 
 Verify successful onboarding completion and navigation to the main screen.
