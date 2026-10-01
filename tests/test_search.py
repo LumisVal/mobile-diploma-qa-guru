@@ -1,5 +1,6 @@
 import allure
 
+from pages.article_page import ArticlePage
 from pages.main_page import MainPage
 from pages.onboarding_page import OnboardingPage
 from pages.search_page import SearchPage
@@ -26,6 +27,7 @@ def test_open_article_from_search_results():
     onboarding_page = OnboardingPage()
     main_page = MainPage()
     search_page = SearchPage()
+    article_page = ArticlePage()
 
     onboarding_page.skip_onboarding()
     main_page.close_popup_if_present()
@@ -33,3 +35,6 @@ def test_open_article_from_search_results():
     search_page.open_search()
     search_page.type_query("Python")
     search_page.should_have_results()
+    search_page.open_first_result()
+
+    article_page.should_be_opened()

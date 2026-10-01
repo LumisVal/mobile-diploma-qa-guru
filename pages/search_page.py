@@ -27,3 +27,11 @@ class SearchPage:
         ).should(be.visible)
 
         return self
+
+    @allure.step("Открыть первую статью из результатов")
+    def open_first_result(self):
+        browser.all(
+            ("id", "org.wikipedia.alpha:id/page_list_item_title")
+        ).first.click()
+
+        return self
