@@ -30,8 +30,12 @@ def create_bstack_options():
             "projectName": settings.project_name,
             "buildName": settings.build_name,
             "sessionName": settings.session_name,
+
         },
     )
+    options.app_package = "org.wikipedia.alpha"
+    options.app_activity = "org.wikipedia.DefaultIcon"
+    options.app_wait_activity = "*"
 
     return options
 
