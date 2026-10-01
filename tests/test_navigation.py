@@ -18,13 +18,13 @@ def test_open_saved_tab():
 
 
 @allure.feature("Navigation")
-@allure.title("Open Edits tab")
-def test_open_edits_tab():
+@allure.title("Open Activity tab")
+def test_open_activity_tab():
     onboarding_page = OnboardingPage()
     main_page = MainPage()
 
     onboarding_page.skip_onboarding()
     main_page.close_popup_if_present()
 
-    main_page.open_edits()
-    main_page.should_see_edits()
+    main_page.open_activity()
+    main_page.should_see_activity()
