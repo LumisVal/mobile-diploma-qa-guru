@@ -1,249 +1,149 @@
-📱 Mobile Automation Project
+# 📱 Mobile-автотесты: Wikipedia для Android
 
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?logo=pytest&logoColor=white)
+![Appium](https://img.shields.io/badge/Appium-662D91?logo=appium&logoColor=white)
+![Selene](https://img.shields.io/badge/Selene-2.x-success)
+![Allure](https://img.shields.io/badge/Allure-Report-orange)
+![BrowserStack](https://img.shields.io/badge/BrowserStack-E66F32?logo=browserstack&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?logo=jenkins&logoColor=white)
 
+Автотесты Android-приложения [Wikipedia](https://github.com/wikimedia/apps-android-wikipedia) (alpha-сборка). Итоговый проект курса QA.GURU по автоматизации на Python.
 
+## 🛠 Стек
 
+| Инструмент | Для чего |
+|---|---|
+| Python 3.12, Pytest | язык и запуск тестов |
+| Appium + UiAutomator2 | управление Android-приложением |
+| Selene | удобная обёртка над драйвером: ожидания, проверки |
+| pydantic-settings, python-dotenv | конфигурация окружений через `.env`-файлы |
+| Allure Report / Allure TestOps | отчёты и ручные тест-кейсы |
+| BrowserStack | запуск на реальных устройствах в облаке |
+| Jenkins | удалённый запуск |
 
+Архитектура — **Page Object**: каждый экран приложения описан отдельным классом в `pages/`, тесты в `tests/` только вызывают его методы.
 
+## 🎯 Что проверяется
 
-📖 About Project
+| Тест | Что делает |
+|---|---|
+| `test_onboarding` | проходит 4 экрана онбординга и проверяет заголовок каждого |
+| `test_search_article` | ищет «Python» и проверяет, что в результатах есть статья о языке программирования |
+| `test_open_article_from_search_results` | открывает статью «Python (programming language)» из результатов и проверяет её заголовок |
+| `test_open_saved_tab` | открывает вкладку Saved |
+| `test_open_activity_tab` | открывает вкладку Activity и проверяет экран «Introducing Activity» |
+| `test_open_more_tab` | открывает вкладку More и проверяет пункт Settings |
 
-This project contains automated mobile UI tests for the Wikipedia Android application.
+После каждого теста в Allure прикладываются скриншот и XML-разметка экрана, при запуске в BrowserStack — ещё видео и ссылка на сессию.
 
-The framework is implemented using Python, Pytest and Appium following the Page Object Model (POM) pattern.
+## 🔍 Интересные решения
 
-The project demonstrates
-Mobile UI Test Automation
-Page Object Architecture
-Allure Reporting
-Allure TestOps Integration
-Jenkins CI/CD
-BrowserStack Cloud Execution
-Real Android Device Testing
-🎯 Tested Application
-Wikipedia Android
+- **Локаторы без `resource-id`.** В актуальной версии приложения онбординг переписан на Jetpack Compose, и у элементов нет `id`. Кнопки ищутся по accessibility id (`content-desc`), заголовки — по тексту.
+- **Промо-панель с анимацией.** После первого открытия поиска выезжает панель «A Faster way to Search». Тест ждёт её до 3 секунд и закрывает, если она появилась; мгновенная проверка тут давала нестабильные падения.
+- **Результат поиска выбирается по названию.** Первым результатом по запросу «Python» идёт страница неоднозначности, поэтому тест кликает по точному названию статьи, а не по первому элементу списка.
+- **Проверки по уникальным элементам экрана.** Например, для Activity проверяется заголовок «Introducing Activity», который есть только на открытом экране, а не надпись на нижней вкладке.
 
-Wikipedia is a free online encyclopedia available through a native Android application.
-
-Official website:
-
-https://www.wikipedia.org/
-
-
----
-
-## 🛠 Technology Stack
-
-### Test Automation
-- 🐍 **Python**
-- 🧪 **Pytest**
-- 📱 **Appium**
-
-### Reporting
-- 📊 **Allure Report**
-- 📝 **Allure TestOps**
-
-### CI/CD
-- ⚙️ **Jenkins**
-
-### Cloud Testing
-- ☁️ **BrowserStack**
-
-### Version Control
-- 🐙 **GitHub**
-
----
-
-
-Verify successful onboarding completion and navigation to the main screen.
-
-TC-02 Search article
-
-Verify article search functionality using a valid query.
-
-TC-03 Open article
-
-Verify opening an article from search results.
-
-TC-04 Open Saved tab
-
-Verify navigation to the Saved section.
-
-TC-05 Open More tab
-
-Verify navigation to the More section.
-
-The project follows the Page Object Model (POM) pattern.
-
-![Project Structure](docs/screenshots/01_project_structure.png)
+## 📂 Структура
 
 ```text
 mobile-diploma-qa-guru
-│
-├── config
-│   ├── context.py
-│   └── settings.py
-│
-├── docs
-│   └── screenshots
-│
-├── pages
-│   ├── main_page.py
+├── config/
+│   ├── context.py        # выбор окружения по переменной CONTEXT
+│   └── settings.py       # настройки из .env-файлов
+├── pages/
 │   ├── onboarding_page.py
-│   └── search_page.py
-│
-├── tests
+│   ├── main_page.py
+│   ├── search_page.py
+│   └── article_page.py
+├── tests/
 │   ├── test_onboarding.py
 │   ├── test_search.py
 │   ├── test_navigation.py
 │   └── test_more.py
-│
-├── utils
-│   └── attachments.py
-│
-├── .env.bstack
-├── .env.credentials
-├── .env.local_emulator
-├── .env.local_real
-│
+├── utils/attachments.py  # скриншоты, page source, видео для Allure
+├── .env.bstack           # BrowserStack
+├── .env.local_emulator   # локальный эмулятор
+├── .env.local_real       # реальное устройство по USB
 ├── conftest.py
-├── pytest.ini
-├── requirements.txt
-│
-├── allure-results
-├── allure-report
-│
-└── README.md
+└── requirements.txt
 ```
-Project Structure
 
+## 🚀 Запуск
 
+### Подготовка
 
-
-🚀 Running Tests
-Install dependencies
+```bash
+python -m venv .venv
+.venv\Scripts\activate          # Windows; на macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-Run tests
-pytest .
-Generate Allure results
-pytest --alluredir=allure-results
-Open Allure Report
-allure serve allure-results
-⚙️ Jenkins Integration
+```
 
-The project is integrated with Jenkins for automated test execution.
+### Локально на эмуляторе
+
+1. Скачайте APK [app-alpha-universal-release.apk](https://github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk) и положите в папку `app/` (она в `.gitignore`).
+2. Запустите эмулятор Android и проверьте, что версия Android совпадает с `PLATFORM_VERSION` в `.env.local_emulator`.
+3. Запустите Appium-сервер: `appium`.
+4. Запустите тесты:
+
+```powershell
+# Windows PowerShell
+$env:CONTEXT = "local_emulator"
+pytest tests -v
+```
+
+```bash
+# macOS / Linux
+CONTEXT=local_emulator pytest tests -v
+```
+
+### В BrowserStack
+
+Создайте рядом с проектом файл `.env.credentials` (он в `.gitignore`, в репозиторий не попадает):
+
+```
+BROWSERSTACK_USER=ваш_логин
+BROWSERSTACK_KEY=ваш_ключ
+```
+
+Загрузите APK в BrowserStack, подставьте полученный `bs://...` в `ANDROID_APP` в `.env.bstack` и запустите:
+
+```bash
+CONTEXT=bstack pytest tests -v
+```
+
+### Allure-отчёт
+
+```bash
+allure serve allure-results
+```
+
+## ⚙️ Jenkins
 
 ![Jenkins Job](docs/screenshots/02_jenkins_job.png)
 
-Jenkins capabilities
-Remote execution
-Build history
-Allure integration
-Continuous Integration workflow
-Jenkins Job
-
-
-
-
-📊 Allure Report
-
-Allure Report provides detailed information about test execution.
-
-Features
-Test statuses
-Execution statistics
-Attachments
-Execution history
-Detailed test information
-### Allure Overview
+## 📊 Allure Report
 
 ![Allure Overview](docs/screenshots/03_allure_overview.png)
-
-
-
-
-Test Details
 
 ![Allure Test Details](docs/screenshots/04_allure_test.png)
 
-### Allure Overview
-
-![Allure Overview](docs/screenshots/03_allure_overview.png)
-
-
 ## 📝 Allure TestOps
 
-Manual test cases are maintained in Allure TestOps.
+Ручные тест-кейсы ведутся в Allure TestOps.
 
 ![Allure TestOps](docs/screenshots/05_testops_cases.png)
 
-Implemented Manual Test Cases
-TC-01 Skip onboarding
-TC-02 Search article
-TC-03 Open article
-TC-04 Open Saved tab
-TC-05 Open More tab
-Test Cases
-
-
-
-
-## ☁️ BrowserStack Integration
-
-BrowserStack is used to execute tests on real Android devices.
+## ☁️ BrowserStack
 
 ![BrowserStack Sessions](docs/screenshots/06_browserstack_sessions.png)
 
-Execution Environment
-Device: Google Pixel 8
-Platform: Android 14
-Framework: Appium + Pytest
-BrowserStack Sessions
+## 🔧 Что можно улучшить
 
+- сделать проверку вкладки Saved по элементу, который есть только на открытом экране;
+- добавить запуск тестов в GitHub Actions;
+- вынести локаторы в константы, чтобы при следующем обновлении приложения менять их в одном месте.
 
+## 👨‍💻 Автор
 
-
-🎯 Test Coverage
-
-The project covers the following functionality:
-
-Onboarding flow
-Search functionality
-Article opening
-Navigation
-Saved section
-More section
-📈 CI/CD Pipeline
-GitHub
-   ↓
-Jenkins
-   ↓
-Pytest
-   ↓
-Appium
-   ↓
-BrowserStack
-   ↓
-Allure Report
-   ↓
-Allure TestOps
-
-## 👨‍💻 Author
-
-> **Leonid Chaliy**  
-> QA Automation Engineer  
->
-> 🐙 GitHub: https://github.com/LumisVal  
-> 📱 Mobile Automation • 🌐 UI Automation • 🔌 API Testing
-
-📌 Diploma Project
-
-This repository was developed as part of the QA Automation Engineer diploma project and demonstrates practical skills in:
-
-Mobile Test Automation
-Python Test Framework Development
-Page Object Pattern
-CI/CD Integration
-Reporting & Analytics
-Test Management
-Real Device Testing
+**Леонид Чалый** — Junior QA Engineer · [GitHub](https://github.com/LumisVal) · Telegram [@ChAi_s_Lim0nom](https://t.me/ChAi_s_Lim0nom)
