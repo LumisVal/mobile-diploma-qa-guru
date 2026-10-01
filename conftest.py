@@ -43,7 +43,9 @@ def create_local_options():
     options.device_name = settings.device_name
     options.platform_version = settings.platform_version
     options.app = os.path.abspath(settings.app)
-
+    options.app_package = "org.wikipedia.alpha"
+    options.app_activity = "org.wikipedia.DefaultIcon"
+    options.app_wait_activity = "*"
     return options
 
 

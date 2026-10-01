@@ -63,18 +63,18 @@ class MainPage:
 
         return self
 
-    @allure.step("Открыть вкладку Edits")
-    def open_edits(self):
+    @allure.step("Открыть вкладку Activity")
+    def open_activity(self):
         browser.element(
-            ("xpath", "//*[@text='Edits']")
+            ("xpath", "//*[@text='Activity']")
         ).click()
 
         return self
 
-    @allure.step("Проверить вкладку Edits")
-    def should_see_edits(self):
+    @allure.step("Проверить вкладку Activity")
+    def should_see_activity(self):
         browser.element(
-            ("xpath", "//*[@text='Edits']")
+            ("xpath", "//*[@text='Introducing Activity']")
         ).should(be.visible)
 
         return self
